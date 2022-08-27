@@ -1,1 +1,1 @@
-# NespressoTrainingApp
+# NespressoMetropolisTrainingApp
