@@ -1,3 +1,11 @@
+Data:
+
+Nespresso Canada Website
+
+Nespresso UK Website
+
+Analysis:
+
 https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html
 
 https://towardsdatascience.com/7-nlp-techniques-you-can-easily-implement-with-python-dc0ade1a53c2
@@ -23,3 +31,39 @@ https://github.com/kjeshang/CSIS4260-StreamingServiceRecommendation/blob/main/St
 https://canvas.eee.uci.edu/courses/9097/files/3341307/download?download_frd=1
 
 https://spacy.io/usage/linguistic-features
+
+https://ucrel.lancs.ac.uk/bnc2/bnc2guide.htm
+
+https://towardsdatascience.com/text-classification-with-nlp-tf-idf-vs-word2vec-vs-bert-41ff868d1794
+
+https://edumunozsala.github.io/BlogEms/jupyter/nlp/classification/python/2020/07/31/Intro_NLP_1_TFIDF_Text_Classification.html
+
+https://towardsdatascience.com/feature-selection-techniques-in-machine-learning-with-python-f24e7da3f36e
+
+https://www.kaggle.com/code/tonypeng1/tf-idf-with-multinomial-nb-and-cross-validation
+
+https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275
+
+https://programminghistorian.org/en/lessons/analyzing-documents-with-tfidf#4-norm-smooth_idf-and-sublinear_tf
+
+Frontend:
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
+
+https://dash.plotly.com/dash-html-components/h1
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/input/
+
+https://dash.plotly.com/dash-core-components/rangeslider
+
+https://stackoverflow.com/questions/50213761/changing-visibility-of-a-dash-component-by-updating-other-component
+
+https://www.w3schools.com/cssref/pr_class_display.asp
+
+Modules:
+
+https://realpython.com/python3-object-oriented-programming/
+
+https://www.w3schools.com/python/python_inheritance.asp
+
+https://www.geeksforgeeks.org/private-methods-in-python/
