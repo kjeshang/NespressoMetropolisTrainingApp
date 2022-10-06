@@ -4,6 +4,8 @@ Nespresso Canada Website
 
 Nespresso UK Website
 
+Nespresso Australia Website
+
 Analysis:
 
 https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html
@@ -46,6 +48,12 @@ https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementatio
 
 https://programminghistorian.org/en/lessons/analyzing-documents-with-tfidf#4-norm-smooth_idf-and-sublinear_tf
 
+https://buhrmann.github.io/tfidf-analysis.html
+
+https://medium.com/analytics-vidhya/recommendation-system-using-bert-embeddings-1d8de5fc3c56
+
+https://amueller.github.io/word_cloud/generated/wordcloud.WordCloud.html#wordcloud.WordCloud
+
 Frontend:
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
@@ -60,6 +68,34 @@ https://stackoverflow.com/questions/50213761/changing-visibility-of-a-dash-compo
 
 https://www.w3schools.com/cssref/pr_class_display.asp
 
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/card/
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/navbar/
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/jumbotron/
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/accordion/
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/table/
+
+https://dash.plotly.com/datatable/width
+
+https://dash.plotly.com/datatable/style
+
+https://www.adamsmith.haus/python/answers/how-to-format-currency-in-python
+
+https://plotly.com/python/pie-charts/
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/collapse/
+
+https://www.thesaurus.com/e/grammar/em-dash/
+
+https://plotly.com/python/horizontal-bar-charts/
+
+https://plotly.com/python/bar-charts/
+
+http://dash-bootstrap-components.opensource.faculty.ai/docs/components/tabs/
+
 Modules:
 
 https://realpython.com/python3-object-oriented-programming/
@@ -67,3 +103,4 @@ https://realpython.com/python3-object-oriented-programming/
 https://www.w3schools.com/python/python_inheritance.asp
 
 https://www.geeksforgeeks.org/private-methods-in-python/
+

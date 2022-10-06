@@ -1,11 +1,11 @@
-from dash import Dash, html
+import flask
+import os
+import dash
 import dash_bootstrap_components as dbc
+from random import randint
 
-import index
+external_stylesheets = [dbc.themes.DARKLY]
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY]);
-
-app.layout = html.Div([index.pageLayout]);
-
-if __name__ == '__main__':
-    app.run_server(debug=True, use_reloader=False)
+server = flask.Flask(__name__)
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+app = dash.Dash(__name__,server=server,external_stylesheets=external_stylesheets)
