@@ -6,6 +6,16 @@ Nespresso UK Website
 
 Nespresso Australia Website
 
+https://www.mymorningespresso.com/nespresso-intensity-levels/#:~:text=Nespresso%20intensity%20levels%20range%20on,roast%2C%20the%20higher%20the%20intensity.
+
+https://www.nespresso.com/au/en/news/blog-ultimate-coffee-bean-guide
+
+https://cafealtura.com/roast-intensity-and-caffeine-levels/
+
+https://www.contact.nespresso.com/faq-3/ro/en#2145
+
+https://www.communitycoffee.com/blog/detail/coffee-101-the-body#:~:text=The%20%E2%80%9Cbody%E2%80%9D%20of%20a%20coffee,altitudes%20or%20in%20volcanic%20soils.
+
 Analysis:
 
 https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html
@@ -54,6 +64,12 @@ https://medium.com/analytics-vidhya/recommendation-system-using-bert-embeddings-
 
 https://amueller.github.io/word_cloud/generated/wordcloud.WordCloud.html#wordcloud.WordCloud
 
+https://www.pragnakalp.com/nlp-tutorial-movie-recommendation-system-using-bert/
+
+https://www.analyticsvidhya.com/blog/2021/04/a-guide-to-feature-engineering-in-nlp/
+
+https://eshban9492.medium.com/feature-engineering-in-nlp-7d89bf47f7ae#:~:text=Feature%20engineering%20is%20a%20process,make%20or%20break%20your%20system.
+
 Frontend:
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
@@ -96,7 +112,13 @@ https://plotly.com/python/bar-charts/
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/tabs/
 
-Modules:
+https://www.youtube.com/watch?v=d2E-pU4H2gc
+
+https://github.com/ritvikmath/YouTubeVideoCode/blob/main/Word2Vec.ipynb
+
+https://stackoverflow.com/questions/28786534/increase-resolution-with-word-cloud-and-remove-empty-border
+
+Python:
 
 https://realpython.com/python3-object-oriented-programming/
 
@@ -104,3 +126,6 @@ https://www.w3schools.com/python/python_inheritance.asp
 
 https://www.geeksforgeeks.org/private-methods-in-python/
 
+https://realpython.com/python-map-function/
+
+https://www.dataquest.io/blog/tutorial-how-to-use-the-apply-method-in-pandas/
