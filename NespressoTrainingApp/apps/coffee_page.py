@@ -309,7 +309,8 @@ def get_coffeeOptions(machineTypeValue, servingValue, includeDecafValue):
 
 # Selected Coffee General Details:
 def selectedCoffeeGeneralDetails(df, idx):
-    generalDetailCols = ["Serving","Serving Size","Sleeve Price","Ingredients & Allergens","Per Capsule Price","Number of Capsules per Sleeve","Net Weight per Total Number of Capsules","Decaf Coffee?","Other Information"];
+    # generalDetailCols = ["Serving","Serving Size","Sleeve Price","Ingredients & Allergens","Per Capsule Price","Number of Capsules per Sleeve","Net Weight per Total Number of Capsules","Decaf Coffee?","Other Information"];
+    generalDetailCols = ["Sleeve Price","Ingredients & Allergens","Per Capsule Price","Number of Capsules per Sleeve","Net Weight per Total Number of Capsules","Decaf Coffee?","Other Information"];
     
     data = [];
     for col in generalDetailCols:
@@ -332,13 +333,17 @@ def selectedCoffeeGeneralDetails(df, idx):
             'backgroundColor': 'rgb(50, 50, 50)',
             'color': 'white'
         },
-
+        style_cell={
+            'whiteSpace':'normal',
+            'height':'auto'
+        },
         style_cell_conditional=[
             {'if': {'column_id': 'Metric'},
-            'width': '10%', 'textAlign':'left'},
+            'width': '30%', 'textAlign':'left'},
             {'if': {'column_id': 'Detail'},
-            'width': '10%', 'textAlign':'center'},
+            'width': '70%', 'textAlign':'center'},
         ],
+        # fill_width=False
     );
 
     return genDetailsTable; 
@@ -382,7 +387,7 @@ def selectedCoffeeInformation(df, coffeeSelectValue):
                                             df.loc[idx, "Headline"], className="lead",
                                             style={"textAlign":"left"}
                                         ),
-                                    ]),
+                                    ], width=8),
                                     dbc.Col([
                                         # Intensity
                                         html.P(
@@ -393,24 +398,35 @@ def selectedCoffeeInformation(df, coffeeSelectValue):
                                             df.loc[idx, "Intensity"], className="display-4",
                                             style={"textAlign":"right", "margin-right":"5px"}
                                         )
-                                    ])
+                                    ], width=4)
                                 ]),
                                 html.Hr(className="my-2"),
                                 # Caption
                                 html.P(df.loc[idx, "Caption"]),
                                 # Notes & Best Served As
                                 html.P(df.loc[idx, "Notes"] + " notes — best served as " + " " + df.loc[idx, "Best Served As"]),
-                                # General Details
+                                # Taste Description & More Information
                                 html.Div([
+                                    dbc.Button(
+                                        "Taste Description",
+                                        id="taste-description-button",
+                                        n_clicks=0,
+                                        style={"margin-bottom":"10px", "display":"inline-flex"}
+                                    ),
                                     dbc.Button(
                                         "More Information",
                                         id="more-information-button",
                                         n_clicks=0,
-                                        style={"margin-bottom":"10px"}
+                                        style={"margin-bottom":"10px", "margin-left":"15px", "display":"inline-flex"}
                                     ),
                                     dbc.Collapse(
                                         selectedCoffeeGeneralDetails(df, idx),
                                         id="more-information",
+                                        is_open=False
+                                    ),
+                                    dbc.Collapse(
+                                        html.P(df.loc[idx, "Taste"]),
+                                        id="taste-description",
                                         is_open=False
                                     )
                                 ])
@@ -795,15 +811,53 @@ def get_mainContent(coffeeSelectValue, machineTypeValue, servingValue, includeDe
     return mainContent;
 
 # Callback: Get Selected Coffee Information - More Information *************
+# @callback(
+#     Output("more-information", "is_open"),
+#     Output("more-information-button", "n_clicks"),
+#     [Input("more-information-button", "n_clicks")],
+#     [State("more-information", "is_open")],
+# )
+# def toggle_moreCoffeeInformation(n, is_open):
+#     # if n:
+#     #     return not is_open
+#     # return is_open
+#     print(n)
+#     print(is_open)
+#     # n = 0, is_open = False
+#     if n == 1:
+#         is_open = True;
+#     else:
+#         is_open = False;
+#         n = 0;
+#     return is_open, n;
+
+# Callback: Get Selected Coffee Information - General Details & Taste Description **********
 @callback(
     Output("more-information", "is_open"),
-    [Input("more-information-button", "n_clicks")],
-    [State("more-information", "is_open")],
+    Output("more-information-button", "n_clicks"),
+    Output("taste-description", "is_open"),
+    Output("taste-description-button", "n_clicks"),
+    [
+        Input("more-information-button", "n_clicks"),
+        Input("taste-description-button", "n_clicks")
+    ],
+    [
+        State("more-information", "is_open"),
+        State("taste-description", "is_open")
+    ],
 )
-def toggle_moreCoffeeInformation(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+def toggle_moreCoffeeInformationAndTasteDescription(n_more, n_taste, is_open_more, is_open_taste):
+    if (n_more == 1) & (n_taste == 0):
+        is_open_more = True;
+    elif (n_more == 0) & (n_taste == 1):
+        is_open_taste = True;
+    else:
+        n_more = 0;
+        is_open_more = False;
+        n_taste = 0;
+        is_open_taste = False;
+    return is_open_more, n_more, is_open_taste, n_taste;
+
 
 # Callback: Recommended Coffee Output ************************
 @callback(

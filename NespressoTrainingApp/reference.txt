@@ -144,6 +144,7 @@ https://www.guru99.com/word-embedding-word2vec.html
 
 https://pbiecek.github.io/xai_stories_2/story-bert-in-the-recommendation-system.html
 
+https://stackoverflow.com/questions/65625553/how-to-reduce-width-of-dash-datatable
 
 Python:
 

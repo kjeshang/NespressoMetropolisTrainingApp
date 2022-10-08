@@ -45,7 +45,7 @@ def display_page(pathname):
     # Home
     if pathname == "/":
         return home.homePageLayout;
-    # TF-IDF & BoW
+    # Coffee NLP
     elif pathname == "/coffee_page":
         return coffee_page.pageLayout;
     # Page Error
