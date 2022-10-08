@@ -16,6 +16,10 @@ https://www.contact.nespresso.com/faq-3/ro/en#2145
 
 https://www.communitycoffee.com/blog/detail/coffee-101-the-body#:~:text=The%20%E2%80%9Cbody%E2%80%9D%20of%20a%20coffee,altitudes%20or%20in%20volcanic%20soils.
 
+https://nespressoguide.com/
+
+https://coffeetano.com/nespresso-intensity-level-chart/
+
 Analysis:
 
 https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html
@@ -70,6 +74,12 @@ https://www.analyticsvidhya.com/blog/2021/04/a-guide-to-feature-engineering-in-n
 
 https://eshban9492.medium.com/feature-engineering-in-nlp-7d89bf47f7ae#:~:text=Feature%20engineering%20is%20a%20process,make%20or%20break%20your%20system.
 
+https://coffeetano.com/nespresso-caffeine-content-chart/
+
+https://medium.com/analytics-vidhya/combining-word-embeddings-to-form-document-embeddings-9135a66ae0f
+
+https://www.kaggle.com/code/reiinakano/basic-nlp-bag-of-words-tf-idf-word2vec-lstm/notebook
+
 Frontend:
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
@@ -117,6 +127,23 @@ https://www.youtube.com/watch?v=d2E-pU4H2gc
 https://github.com/ritvikmath/YouTubeVideoCode/blob/main/Word2Vec.ipynb
 
 https://stackoverflow.com/questions/28786534/increase-resolution-with-word-cloud-and-remove-empty-border
+
+https://pub.towardsai.net/content-based-recommendation-system-using-word-embeddings-c1c15de1ef95
+
+https://github.com/RaRe-Technologies/gensim-data
+
+https://stackoverflow.com/questions/39549248/how-to-load-a-pre-trained-word2vec-model-file-and-reuse-it
+
+https://programmerah.com/gensim-error-attributeerror-the-vocab-attribute-was-removed-from-keyedvector-in-gensim-4-0-0-39145/
+
+https://github.com/devalindey/Recommender-Systems-using-Word-Embeddings/blob/master/Recommender.ipynb
+
+https://medium.com/analytics-vidhya/text-classification-from-bag-of-words-to-bert-part-2-word2vec-35c8c3b34ee3
+
+https://www.guru99.com/word-embedding-word2vec.html
+
+https://pbiecek.github.io/xai_stories_2/story-bert-in-the-recommendation-system.html
+
 
 Python:
 
