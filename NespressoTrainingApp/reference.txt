@@ -20,6 +20,26 @@ https://nespressoguide.com/
 
 https://coffeetano.com/nespresso-intensity-level-chart/
 
+EDA:
+
+https://stackoverflow.com/questions/48238305/bar-plot-with-groupby
+
+https://stackoverflow.com/questions/29188757/specify-format-of-floats-for-tick-labels
+
+https://www.geeksforgeeks.org/how-to-create-a-stacked-bar-plot-in-seaborn/
+
+https://www.statology.org/pandas-stacked-bar-chart/
+
+https://seaborn.pydata.org/generated/seaborn.lineplot.html
+
+https://seaborn.pydata.org/tutorial/color_palettes.html
+
+https://stackoverflow.com/questions/70261165/how-to-change-the-order-of-columns-and-plot-images-side-by-side-with-seaborn-in
+
+https://stackoverflow.com/questions/57417970/how-to-set-custom-colors-on-a-count-plot-in-seaborn
+
+https://seaborn.pydata.org/generated/seaborn.countplot.html
+
 Analysis:
 
 https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html
