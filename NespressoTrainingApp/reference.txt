@@ -100,6 +100,8 @@ https://medium.com/analytics-vidhya/combining-word-embeddings-to-form-document-e
 
 https://www.kaggle.com/code/reiinakano/basic-nlp-bag-of-words-tf-idf-word2vec-lstm/notebook
 
+https://dataaspirant.com/five-most-popular-similarity-measures-implementation-in-python/
+
 Frontend:
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
@@ -166,6 +168,12 @@ https://pbiecek.github.io/xai_stories_2/story-bert-in-the-recommendation-system.
 
 https://stackoverflow.com/questions/65625553/how-to-reduce-width-of-dash-datatable
 
+https://plotly.com/python/figure-labels/
+
+https://plotly.com/python/tick-formatting/
+
+https://stackoverflow.com/questions/68061197/re-order-axis-in-plotly-graph
+
 Python:
 
 https://realpython.com/python3-object-oriented-programming/
@@ -177,3 +185,7 @@ https://www.geeksforgeeks.org/private-methods-in-python/
 https://realpython.com/python-map-function/
 
 https://www.dataquest.io/blog/tutorial-how-to-use-the-apply-method-in-pandas/
+
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
+
+https://stackoverflow.com/questions/22005911/convert-columns-to-string-in-pandas

@@ -6,7 +6,8 @@ import sys
 sys.path.append(".")
 from app import app
 from apps import home
-from apps import coffee_page
+from apps import NLP_page
+from apps import explore_page
 
 # Create elements of the webpage --------------------------
 heading = html.H2(
@@ -20,7 +21,16 @@ logoImage = html.Img(src=image_path, style={'height':'75%', 'width':'55%', "padd
 
 navigation = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Coffee", href="/coffee_page")),
+        # dbc.NavItem(dbc.NavLink("Natural Language Processing", href="/NLP_page")),
+        dbc.DropdownMenu(
+            children=[
+                dbc.DropdownMenuItem('Explore', href='/explore_page'),
+                dbc.DropdownMenuItem('NLP', href='/NLP_page')
+            ],
+            nav=True,
+            in_navbar=True,
+            label='Coffee'
+        )
     ],
     brand="Nespresso Metropolis Training App",
     brand_href="/",
@@ -45,9 +55,12 @@ def display_page(pathname):
     # Home
     if pathname == "/":
         return home.homePageLayout;
-    # Coffee NLP
-    elif pathname == "/coffee_page":
-        return coffee_page.pageLayout;
+    # Explore Page
+    elif pathname == '/explore_page':
+        return explore_page.pageLayout;
+    # NLP Page
+    elif pathname == "/NLP_page":
+        return NLP_page.pageLayout;
     # Page Error
     else:
         return "404 Page Error! Please choose a link";
