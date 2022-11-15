@@ -61,7 +61,8 @@ servingFilter = [
     html.P("Serving", style={"font-weight":"bold"}),
     dcc.Dropdown(
         id="serving-filter",
-        multi=True
+        multi=True,
+        style={'color':'black'}
     )
 ];
 

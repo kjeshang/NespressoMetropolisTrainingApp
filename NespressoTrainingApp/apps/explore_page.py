@@ -1,11 +1,10 @@
 # Setup -------------------------------------------------------------
-import pandas as pd
+import dash_bootstrap_components as dbc
 import numpy as np
-
+import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from dash import dcc, html, Input, Output, State, callback, dash_table
-import dash_bootstrap_components as dbc
+from dash import Input, Output, State, callback, dash_table, dcc, html
 
 # Import the data ----------------------------------------------------
 df = pd.read_csv('data\PreparedCoffeeData.csv');
@@ -31,7 +30,8 @@ servingFilter = [
         id="serving",
         # options=[{"label":x, "value":x} for x in df["Serving"].unique().tolist()],
         # value=df["Serving"].unique().tolist(),
-        multi=True
+        multi=True,
+        style={'color':'black'}
     )
 ];
 
@@ -58,7 +58,8 @@ categoryFilter = [
         id="category",
         # options=[{"label":x, "value":x} for x in df["Category"].unique().tolist()],
         # value=df["Category"].unique().tolist(),
-        multi=True
+        multi=True,
+        style={'color':'black'}
     )
 ];
 
@@ -90,6 +91,56 @@ intensityOptionTypeSelector = [
         inputStyle={"margin-right":"5px", "margin-left":"15px"},
         style={"display":"inline-flex"}
     )
+];
+
+# Taste Profile Chart Selector:
+# tasteProfileChartSelector = [
+#     html.P('Select Chart', style={'font-weight':'bold'}),
+#     dcc.Dropdown(
+#         id='tasteProfileChart',
+#         options = [
+#             {'label':'Distribution Chart', 'value':'Distribution Chart'},
+#             {'label':'Correlation with Intensity', 'value':'Yes'}
+#         ],
+#         value='Distribution Chart',
+#         style={"display":"inline-flex"}
+#     )
+# ];
+
+# Taste Profile Type Selector:
+tasteProfileTypeSelector = [
+    html.P('Taste Profile Type', style={'font-weight':'bold'}),
+    dcc.RadioItems(
+        id='tasteProfileType',
+        options = [
+            {'label':'Level', 'value':'Level'},
+            {'label':'Classification', 'value':'Classification'}
+        ],
+        value='Level',
+        inputStyle={"margin-right":"5px", "margin-left":"15px"},
+        style={"display":"inline-flex"}
+    )
+];
+
+# Milk Selector:
+milkSelector = [
+    html.P('With Milk?', style={'font-weight':'bold'}),
+    dcc.RadioItems(
+        id='milk',
+        options = [
+            {'label':'No', 'value':'No'},
+            {'label':'Yes', 'value':'Yes'}
+        ],
+        value='No',
+        inputStyle={"margin-right":"5px", "margin-left":"15px"},
+        style={"display":"inline-flex"}
+    )
+];
+
+# Taste Profile Selector
+tasteProfileSelector = [
+    html.P('Taste Profile', style={'font-weight':'bold'}),
+    dcc.Dropdown(id='tasteProfile', style={'color':'black'}, clearable=False)
 ];
 
 # EDA Content:
@@ -177,6 +228,7 @@ def get_edaContent(machine, serving, decaf, category):
             dbc.AccordionItem(children=[
                 html.Div(id='chart1')
             ], title='Distribution of Coffee Servings', style={'color':'white'}, item_id='1'),
+            
             # Distribution of Coffee Price
             dbc.AccordionItem(children=[
                 dbc.Card(children=[
@@ -184,13 +236,51 @@ def get_edaContent(machine, serving, decaf, category):
                 ]),
                 html.Div(id='chart2'),
             ], title='Distribution of Coffee Price', style={'color':'white'}, item_id='2'),
+            
             # Distribution of Coffee Intensity
             dbc.AccordionItem(children=[
                 dbc.Card(children=[
                     dbc.CardBody(children=intensityOptionTypeSelector)
                 ]),
                 html.Div(id='chart3'),
-            ], title='Distribution of Coffee Intensity', style={'color':'white'}, item_id='3')
+            ], title='Distribution of Coffee Intensity', style={'color':'white'}, item_id='3'),
+            
+            # Distribution of Roast by Machine Type & Proportion of Decaffeinated Coffee
+            dbc.AccordionItem(children=[
+                dbc.Card(children=[
+                    html.Div(id='chart5'),
+                ]),
+            ], title='Distribution of Roast by Machine Type & Proportion of Decaffeinated Coffee', style={'color':'white'}, item_id='5'),
+
+            # Distribution of Taste Profile Level & Correlation with Intensity
+            dbc.AccordionItem(children=[
+                dbc.Row(children=[
+                    dbc.Col(children=[
+                        dbc.Card(children=[
+                            dbc.CardBody(children=tasteProfileTypeSelector)
+                        ])
+                    ]),
+                    dbc.Col(children=[
+                        dbc.Card(children=[
+                            dbc.CardBody(children=milkSelector)
+                        ])
+                    ]),
+                    dbc.Col(children=[
+                        dbc.Card(children=[
+                            dbc.CardBody(children=tasteProfileSelector)
+                        ])
+                    ]),
+                ], style={'margin-bottom':'15px'}),
+                html.Div(id='chart4', ),
+            ], title='Distribution of Taste Profile & Relationship with Intensity', style={'color':'white'}, item_id='4'),
+            
+            # Taste Profile Correlation with Intensity
+            dbc.AccordionItem(children=[
+                dbc.Card(children=[
+                    dbc.CardBody(children=milkSelector)
+                ]),
+                html.Div(id='chart6'),
+            ], title='Taste Profile Correlation with Intensity', style={'color':'white'}, item_id='6'),
         ]);
     return content;
 
@@ -304,7 +394,8 @@ def get_chart2(machine, serving, decaf, category, priceType):
     output = html.Div(children=chart);
     return output;
 
-# Distribution of Coffee Intensity **************************************\
+# Distribution of Coffee Intensity **************************************
+
 @callback(
     Output('chart3','children'),
     [   
@@ -357,6 +448,169 @@ def get_chart3(machine, serving, decaf, category, intensityOption):
         );
         if intensityOption == 'Intensity Classification':
            fig.update_xaxes(categoryorder='array', categoryarray= ['Low','Medium','High']);
+    chart = dcc.Graph(figure=fig, config={"displayModeBar":False});
+    output = html.Div(children=chart);
+    return output;
+
+# Distribution of Roast by Machine Type & Proportion of Decaffeinated Coffee *********
+
+@callback(
+    Output('chart5', 'children'),
+    [
+        Input('machine', 'value'),
+        Input('serving', 'value'),
+        Input('decaf', 'value'),
+        Input('category', 'value'),
+    ]
+)
+def get_chart5(machine, serving, decaf, category):
+    if decaf == 'Yes':
+        mask = (df['Type'].isin(machine)) & (df['Serving'].isin(serving)) & (df['Category'].isin(category));
+    else:
+        mask = (df['Type'].isin(machine)) & (df['Serving'].isin(serving)) & (df['Category'].isin(category)) & (df['Decaf Coffee?'] != 'Yes');
+    df_filter = df[mask];
+    # Bar Chart:
+    df_agg = df_filter.groupby(by=['Roast Type','Type']).size();
+    dff_bar = transformDataAggregation(df_agg);
+    fig_bar = px.bar(
+        dff_bar,
+        x='Count',
+        y='Roast Type',
+        color='Type',
+        barmode='group',
+        orientation='h',
+        template='plotly_dark',
+        title='Distribution of Roast by Machine Type'
+    );
+    fig_bar.update_yaxes(categoryorder='array', categoryarray= ['Blonde','Medium','Dark']);
+    # Pie Chart:
+    df_prop = df_filter.groupby(by='Decaf Coffee?').size();
+    data = [];
+    for i in range(len(df_prop)):
+        row = []
+        row.append(df_prop.index[i]);
+        row.append(df_prop.values[i]);
+        data.append(row);
+    dff_pie = pd.DataFrame(data, columns=['Decaf Coffee?','Count']);
+    fig_pie = px.pie(dff_pie, values='Count', names='Decaf Coffee?', title='Proportion of Decaffeinated Coffee', template='plotly_dark');
+    # Output:
+    output = html.Div(children=[
+        dbc.Row(children=[
+            dbc.Col(children=dcc.Graph(figure=fig_bar, config={"displayModeBar":False}), width=8),
+            dbc.Col(children=dcc.Graph(figure=fig_pie, config={"displayModeBar":False}), width=4),
+        ])
+    ]);
+    return output;
+
+# Get Taste Profile Options ************************************************
+
+@callback(
+    Output('tasteProfile', 'options'),
+    Output('tasteProfile', 'value'),
+    [
+        Input('tasteProfileType', 'value'),
+        Input('milk', 'value')
+    ]
+)
+def get_tasteProfileOptions(tasteProfileType, milk):
+    if (tasteProfileType == 'Level') & (milk == 'No'):
+        options = ['Acidity','Bitterness','Roastness','Body'];
+        value = 'Acidity';
+    elif (tasteProfileType == 'Level') & (milk == 'Yes'):
+        options = ['Milky Taste','Bitterness with Milk','Roastiness with Milk','Creamy Texture'];
+        value = 'Milky Taste';
+    elif (tasteProfileType == 'Classification') & (milk == 'No'):
+        options = ['Acidity Classification','Bitterness Classification','Roastness Classification','Body Classification'];
+        value = 'Acidity Classification';
+    elif (tasteProfileType == 'Classification') & (milk == 'Yes'):
+        options = ['Milky Taste Classification','Bitterness with Milk Classification','Roastiness with Milk Classification','Creamy Texture Classification'];
+        value = 'Milky Taste Classification';
+    return options, value;
+
+# Distribution of Taste Profile & Relationship with Intensity ************************
+
+@callback(
+    Output('chart4', 'children'),
+    [
+        Input('machine', 'value'),
+        Input('serving', 'value'),
+        Input('decaf', 'value'),
+        Input('category', 'value'),
+        Input('tasteProfile', 'value'),
+        Input('tasteProfileType', 'value'),
+    ]
+)
+def get_chart4_and_5(machine, serving, decaf, category, tasteProfile, tasteProfileType):
+    if decaf == 'Yes':
+        mask = (df['Type'].isin(machine)) & (df['Serving'].isin(serving)) & (df['Category'].isin(category));
+    else:
+        mask = (df['Type'].isin(machine)) & (df['Serving'].isin(serving)) & (df['Category'].isin(category)) & (df['Decaf Coffee?'] != 'Yes');
+    df_filter = df[mask];
+    # Bar Chart:
+    df_agg = df_filter.groupby(by=[tasteProfile]).size();
+    data = [];
+    for i in range(len(df_agg)):
+        row = []
+        row.append(df_agg.index[i]);
+        row.append(df_agg.values[i]);
+        data.append(row);
+    dff_agg = pd.DataFrame(data, columns=[tasteProfile,'Count']);
+    fig_agg = px.bar(dff_agg, x=tasteProfile, y='Count', template='plotly_dark', title=f'Distribution of {tasteProfile}');
+    if tasteProfileType == 'Level':
+        # Line Plot:
+        df_mean = df_filter.groupby(by=[tasteProfile])['Intensity'].mean();
+        data = [];
+        for i in range(len(df_mean)):
+            row = [];
+            row.append(df_mean.index[i]);
+            row.append(df_mean.values[i]);
+            data.append(row);
+        dff_mean = pd.DataFrame(data, columns=[tasteProfile,'Intensity']);
+        fig_mean = px.line(dff_mean, x=tasteProfile, y='Intensity', template='plotly_dark', title=f'Relationship between {tasteProfile} and Intensity');
+        # output = html.Div(children=[
+        #     dbc.Row(children=dcc.Graph(figure=fig_agg, config={"displayModeBar":False})),
+        #     dbc.Row(children=dcc.Graph(figure=fig_mean, config={"displayModeBar":False}))
+        # ]);
+        output = html.Div(children=[
+            dbc.Row(children=[
+                dbc.Col(children=dcc.Graph(figure=fig_agg, config={"displayModeBar":False}), width=6),
+                dbc.Col(children=dcc.Graph(figure=fig_mean, config={"displayModeBar":False}), width=6)
+            ])
+        ]);
+    elif tasteProfileType == 'Classification':
+        fig_agg.update_xaxes(categoryorder='array', categoryarray= ['Low','Medium','High']);
+        chart = dcc.Graph(figure=fig_agg, config={"displayModeBar":False});
+        output = html.Div(children=chart);
+    return output;
+
+# Taste Profile Correlation with Intensity ******************************************
+
+@callback(
+    Output('chart6', 'children'),
+    [
+        Input('machine', 'value'),
+        Input('serving', 'value'),
+        Input('decaf', 'value'),
+        Input('category', 'value'),
+        Input('milk', 'value')
+    ]
+)
+def get_chart6(machine, serving, decaf, category, milk):
+    if decaf == 'Yes':
+        mask = (df['Type'].isin(machine)) & (df['Serving'].isin(serving)) & (df['Category'].isin(category));
+    else:
+        mask = (df['Type'].isin(machine)) & (df['Serving'].isin(serving)) & (df['Category'].isin(category)) & (df['Decaf Coffee?'] != 'Yes');
+    df_filter = df[mask];
+    if milk == 'No':
+        cols = ['Intensity','Acidity','Bitterness','Body','Roastness'];
+        title = 'Correlation between Intensity & Taste Profile Levels';
+        color_cont = 'amp';
+    elif milk == 'Yes':
+        cols = ['Intensity','Milky Taste','Bitterness with Milk','Roastiness with Milk','Creamy Texture'];
+        title = 'Correlation between Intensity & Taste Profile Levels with Milk';
+        color_cont = 'ice';
+    dff = df_filter[cols].corr().round(3);
+    fig = px.imshow(dff, text_auto=True, aspect='auto', title=title, color_continuous_scale=color_cont, template='plotly_dark');
     chart = dcc.Graph(figure=fig, config={"displayModeBar":False});
     output = html.Div(children=chart);
     return output;
