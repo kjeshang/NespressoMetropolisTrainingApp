@@ -102,6 +102,30 @@ https://www.kaggle.com/code/reiinakano/basic-nlp-bag-of-words-tf-idf-word2vec-ls
 
 https://dataaspirant.com/five-most-popular-similarity-measures-implementation-in-python/
 
+https://towardsdatascience.com/my-first-nlp-pipeline-99d24aafb773
+
+https://www.analyticsvidhya.com/blog/2022/06/an-end-to-end-guide-on-nlp-pipeline/
+
+https://www.kdnuggets.com/2021/03/natural-language-processing-pipelines-explained.html
+
+https://eshban9492.medium.com/feature-engineering-in-nlp-7d89bf47f7ae#:~:text=Feature%20engineering%20is%20a%20process,make%20or%20break%20your%20system.
+
+https://betterprogramming.pub/beginners-to-advanced-feature-engineering-from-text-data-c228047a4813
+
+https://towardsdatascience.com/the-triune-pipeline-for-three-major-transformers-in-nlp-18c14e20530
+
+https://medium.com/analytics-vidhya/perfecting-recommendation-pipeline-with-advanced-statistical-and-algebraic-computations-8341a5398988
+
+https://www.infoq.com/presentations/nlp-ml-dl/
+
+https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.euclidean_distances.html
+
+https://stats.stackexchange.com/questions/53068/euclidean-distance-score-and-similarity
+
+https://intellifysolutions.com/blog/techniques-of-calculating-similarity-distance-measure/
+
+https://www.infoq.com/presentations/nlp-ml-dl/
+
 Frontend:
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
