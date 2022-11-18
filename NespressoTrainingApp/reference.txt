@@ -126,6 +126,10 @@ https://intellifysolutions.com/blog/techniques-of-calculating-similarity-distanc
 
 https://www.infoq.com/presentations/nlp-ml-dl/
 
+https://www.analyticsvidhya.com/blog/2021/09/creating-a-movie-reviews-classifier-using-tf-idf-in-python/
+
+https://medium.com/@cmukesh8688/tf-idf-vectorizer-scikit-learn-dbc0244a911a
+
 Frontend:
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
@@ -219,3 +223,5 @@ https://www.dataquest.io/blog/tutorial-how-to-use-the-apply-method-in-pandas/
 https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
 
 https://stackoverflow.com/questions/22005911/convert-columns-to-string-in-pandas
+
+https://www.programiz.com/python-programming/examples/random-number#:~:text=To%20generate%20random%20number%20in,is%20defined%20in%20random%20module.
