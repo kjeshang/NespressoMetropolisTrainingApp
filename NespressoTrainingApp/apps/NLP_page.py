@@ -4,16 +4,17 @@ import pandas as pd
 import numpy as np
 from time import time
 
-from wordcloud import WordCloud
-
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, TfidfTransformer
-from sklearn.metrics.pairwise import linear_kernel, cosine_similarity
+from sklearn.metrics.pairwise import linear_kernel, cosine_similarity, euclidean_distances, manhattan_distances
 from sklearn.feature_selection import chi2
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
 from sklearn.pipeline import Pipeline
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report, roc_auc_score, roc_curve
 
+from wordcloud import WordCloud
 import plotly.express as px
 import plotly.graph_objects as go
 from dash import dcc, html, Input, Output, State, callback, dash_table
@@ -21,7 +22,7 @@ import dash_bootstrap_components as dbc
 
 # import sys
 # sys.append(".")
-from modules.NLP import get_dataframeNLP, get_recommendationResults, stop_words, token_pattern, get_featureResults
+from modules.NLP import get_dataframeNLP, get_recommendationResults, stop_words, token_pattern, get_featureResults, getPipeAccuracy
 
 # Import the data -----------------------------------------
 df = pd.read_csv("data/PreparedCoffeeData.csv", index_col=False);
@@ -166,11 +167,116 @@ tfidfBoWParameters = [
     # token_pattern = r"\b[a-zA-Z]{3,}\b"
 ];
 
+# Validation Parameters ******************************************************
+
+# Target Selector:
+NLP_Columns = [
+    'Type', 
+    'Serving', 
+    'Serving Size', 
+    'Headline',
+    'Caption', 
+    'Taste',
+    'Best Served As', 
+    'Notes', 
+    'Category',
+    'Roast Type',
+    'Intensity Classification',
+    'Acidity Classification', 
+    'Bitterness Classification',
+    'Roastness Classification', 
+    'Body Classification',
+    'Milky Taste Classification', 
+    'Bitterness with Milk Classification',
+    'Roastiness with Milk Classification', 
+    'Creamy Texture Classification'
+];
+
+validationParameters = [
+    # Target Feature Selector:
+    dbc.Row(children=[
+        html.P("Target Feature", style={"font-weight":"bold"}),
+    ]),
+    dbc.Row([
+        dcc.Dropdown(
+            id="target",
+            options=[{'label':x, 'value':x} for x in NLP_Columns],
+            value='Roast Type',
+            clearable=False,
+            style={"color":"black"}
+        )
+    ], style={"margin-bottom":"15px"}),
+    # Alpha:
+    dbc.Row(children=[
+        dbc.Col(children=[
+            html.P("Alpha", style={"font-weight":"bold"}),
+        ]),
+        dbc.Col(children=[
+            dbc.Input(id="alpha", type="number", min=0)
+        ])
+    ], style={"margin-bottom":"10px"}),
+    # Grid Parameter Input:
+    dbc.Row(children=[
+        html.P("Multinomial Naive Bayes Alpha Grid Range", style={"font-weight":"bold"}),
+    ]),
+    dbc.Row([
+        dbc.Row([
+            dbc.Col([
+                html.P("Minimum")
+            ]),
+            dbc.Col([
+                dbc.Input(id="min-alpha", type="number", min=0, value=0.01)
+            ])
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.P("Maximum")
+            ]),
+            dbc.Col([
+                dbc.Input(id="max-alpha", type="number", min=0, value=1)
+            ])
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.P("Step")
+            ]),
+            dbc.Col([
+                dbc.Input(id="step-alpha", type="number", min=0, value=0.1)
+            ])
+        ]),
+    ], style={"margin-bottom":"15px"}),
+    # Cross Validation:
+    dbc.Row(children=[
+        dbc.Col(children=[
+            html.P("Cross Validation", style={"font-weight":"bold"}),
+        ]),
+        dbc.Col(children=[
+            dbc.Input(id="cv", type="number", min=0, value=8)
+        ])
+    ], style={"margin-bottom":"10px"}),
+    # Refit
+    dbc.Row(children=[
+        dbc.Col(children=[
+            html.P("Refit", style={"font-weight":"bold"}),
+        ]),
+        dbc.Col(children=[
+            dcc.Dropdown(
+                id='refit',
+                options=[{'label':str(x), 'value':x} for x in [True,False]],
+                value=True,
+                multi=False,
+                clearable=False,
+                style={"color":"black"}
+            ),
+        ])
+    ], style={"margin-bottom":"10px"})
+];
+
 # *********************************************************
 
-# Technique Selector:
+# Technique, NLP, Validation Selector:
 techniqueSelector = [
-    html.P("Text Mining Technique", style={"font-weight":"bold"}),
+    html.P("Feature Engineering Technique", style={"font-weight":"bold"}),
     dcc.RadioItems(
         id="technique-selector",
         options=[
@@ -195,6 +301,37 @@ techniqueSelector = [
         is_open=False,
         placement="end",
         scrollable=True
+    ),
+    dbc.Button(
+        "Validation Options", 
+        id="open-validation-options", 
+        n_clicks=0,
+        style={"margin-left":"20px", "display":"inline-flex"}
+    ),
+    dbc.Offcanvas(
+        html.Div(children=validationParameters),
+        id="validation-options",
+        title="Validation Options",
+        is_open=False,
+        placement="end",
+        scrollable=True
+    ),
+];
+
+# Similarity Measure Selector:
+similarityMeasureSelector = [
+    html.P("Similarity Measure", style={"font-weight":"bold"}),
+    dcc.Dropdown(
+        id="similarity-measure",
+        options=[
+            {"label":"Cosine Similarity", "value":"cosine_similarity"},
+            {"label":"Linear Kernel", "value":"linear_kernel"},
+            {"label":"Euclidean Distances", "value":"euclidean_distances"},
+            {"label":"Manhattan Distances", "value":"manhattan_distances"},
+        ],
+        value='cosine_similarity',
+        clearable=False,
+        style={"color":"black"}
     )
 ];
 
@@ -235,7 +372,13 @@ pageStructure = [
             dbc.Card(children=[
                 dbc.CardBody(children=techniqueSelector)
             ])
-        ], width=9),
+        ], width=6),
+        # Similarity Measure
+        dbc.Col(children=[
+            dbc.Card(children=[
+                dbc.CardBody(children=similarityMeasureSelector)
+            ])
+        ]),
     ], style={"margin-bottom":"15px"}),
     # Main Content
     dbc.Row(children=mainContent)
@@ -255,12 +398,30 @@ def toggle_nlpParameter(n1, is_open):
         return not is_open
     return is_open
 
+# Callback: Toggle Validation Parameters ************************************
+@callback(
+    Output("validation-options", "is_open"),
+    [Input("open-validation-options", "n_clicks")],
+    [State("validation-options", "is_open")],
+)
+def toggle_validationParameters(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+@callback(
+    Output('max-alpha','min'),
+    Input('min-alpha','value')
+)
+def get_minForMaxAlpha(value):
+    return value;
+
 # Callback: Retrieve NLP parameters based on technique selected *****
 @callback(
     Output("nlp-parameters", "children"),
     [Input("technique-selector", "value")]
 )
-def getNLPTechniqueParametes(techniqueSelected):
+def getNLPTechniqueParameters(techniqueSelected):
     # TF-IDF or BoW
     if (techniqueSelected == 0) | (techniqueSelected == 1):
         return tfidfBoWParameters;
@@ -444,9 +605,9 @@ def selectedCoffeeInformation(df, coffeeSelectValue):
 # Functions: Get Recommendation Content *********************************
 
 # Recommendation Results Table:
-def get_recommendationResultsTable(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern):
+def get_recommendationResultsTable(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern, similarity):
 
-    dff_rec = get_recommendationResults(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern);
+    dff_rec = get_recommendationResults(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern, similarity);
 
     dashTable = dash_table.DataTable(
         style_cell={
@@ -726,8 +887,8 @@ def get_featureResultComparison(techniqueSelected, df, coffee_select, min_df, ma
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 # Recommendation Content Ouput:
-def get_recommendationContent(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern):
-    dashTable = get_recommendationResultsTable(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern);
+def get_recommendationContent(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern, similarity):
+    dashTable = get_recommendationResultsTable(techniqueSelected, df, coffee_select, numRec, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern, similarity);
 
     recommendationContent = html.Div([
         # Recommendations
@@ -755,6 +916,44 @@ def get_recommendationContent(techniqueSelected, df, coffee_select, numRec, min_
     ]);
     return recommendationContent;
 
+# VALIDATION CONTENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+def get_validationContent(techniqueSelected, df, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern, target, alpha, parameters, cv, refit):
+    if techniqueSelected == 0:
+        vectorizer = TfidfVectorizer(min_df=min_df, max_df=max_df, max_features=max_features, stop_words=stop_words, sublinear_tf=sublinear_tf, ngram_range=(n_lower, n_upper));
+    elif techniqueSelected == 1:
+        vectorizer = CountVectorizer(min_df=min_df, max_df=max_df, max_features=max_features, stop_words=stop_words, analyzer=analyzer, token_pattern=token_pattern, ngram_range=(n_lower, n_upper));
+
+    df_cm, df_cr, df_score = getPipeAccuracy(
+        dataframe=df, 
+        features='Textual Info', 
+        target=target, 
+        vectorizer=vectorizer, 
+        test_size=0.2, 
+        random_state=42,
+        alpha=alpha,
+        parameters={
+            'mulNB__alpha':parameters
+        },
+        cv=cv, 
+        refit=refit
+    );
+
+    fig = px.imshow(df_cm, text_auto=True, aspect="auto", template='plotly_dark', title=f'Confusion Matrix (Target: {(target)})');
+
+    validationContent = html.Div([
+        dbc.Row([
+            dbc.Col([dcc.Graph(figure=fig, config={"displayModeBar":False})], width=6),
+            dbc.Col([
+                html.H6('Model Accuracy Metrics', style={"font-style":"italic"}),
+                dbc.Table.from_dataframe(df_score, striped=True, hover=True, index=True),
+                html.H5(f'Classification Report (Target: {target})'),
+                dbc.Table.from_dataframe(df_cr, striped=True, hover=True, index=True)
+            ], width=6)
+        ]),
+    ]);
+    return validationContent;
+
 # Callback: Get Main Content **************************************************
 @callback(
     Output("main-content", "children"),
@@ -773,14 +972,35 @@ def get_recommendationContent(techniqueSelected, df, coffee_select, numRec, min_
         Input("ngram_range","value"),
         Input("sublinear_tf", "value"),
         Input("analyzer", "value"),
+        Input("similarity-measure","value"),
+        # Validation Parameters
+        Input("target","value"),
+        Input("alpha","value"),
+        Input("min-alpha","value"),
+        Input("max-alpha","value"),
+        Input("step-alpha","value"),
+        Input("cv","value"),
+        Input("refit","value")
     ]
 )
-def get_mainContent(coffeeSelectValue, machineTypeValue, servingValue, includeDecafValue, techniqueSelected, numRec, min_df, max_df, max_features, ngram_range, sublinear_tf, analyzer):
+def get_mainContent(coffeeSelectValue, machineTypeValue, servingValue, includeDecafValue, techniqueSelected, numRec, min_df, max_df, max_features, ngram_range, sublinear_tf, analyzer, similarityMeasure, target, alpha, minAlpha, maxAlpha, stepAlpha, cv, refit):
     if includeDecafValue == "Yes":
         mask = (df["Type"].isin(machineTypeValue)) & (df["Serving"].isin(servingValue));
     else:
         mask = (df["Type"].isin(machineTypeValue)) & (df["Serving"].isin(servingValue)) & (df["Decaf Coffee?"] != "Yes");
     
+    if similarityMeasure == 'cosine_similarity':
+        similarity = cosine_similarity;
+    elif similarityMeasure == 'linear_kernel':
+        similarity = linear_kernel;
+    elif similarityMeasure == 'euclidean_distances':
+        similarity = euclidean_distances;
+    elif similarityMeasure == 'manhattan_distances':
+        similarity = manhattan_distances;
+
+
+    # print(np.arange(minAlpha, maxAlpha, stepAlpha))
+
     if (len(machineTypeValue) == 0) & (len(servingValue) == 0):
         mainContent = html.P("No Machine Type and/or Serving selected");
     elif (coffeeSelectValue == None) | (coffeeSelectValue not in df[mask]["Name"].tolist()):
@@ -806,8 +1026,30 @@ def get_mainContent(coffeeSelectValue, machineTypeValue, servingValue, includeDe
                     n_upper=ngram_range[1], 
                     sublinear_tf = sublinear_tf, 
                     analyzer = analyzer, 
-                    token_pattern=token_pattern)
-            ], title="Recommendation", style={"color":"white"}, item_id="recommendation")   
+                    token_pattern=token_pattern,
+                    similarity=similarity
+                )
+            ], title="Recommendation", style={"color":"white"}, item_id="recommendation"),
+            dbc.AccordionItem([
+                get_validationContent(
+                    techniqueSelected = techniqueSelected, 
+                    df = df[mask], 
+                    min_df = min_df, 
+                    max_df = max_df, 
+                    max_features = max_features, 
+                    stop_words = stop_words, 
+                    n_lower = ngram_range[0], 
+                    n_upper = ngram_range[1], 
+                    sublinear_tf = sublinear_tf, 
+                    analyzer = analyzer, 
+                    token_pattern = token_pattern, 
+                    target = target, 
+                    alpha = alpha, 
+                    parameters = np.arange(minAlpha, maxAlpha, stepAlpha).tolist(),
+                    cv = cv, 
+                    refit = refit
+                )
+            ], title='Validation by Classification', style={"color":"white"}, item_id="validation"),   
         ], active_item="coffeeInformation");
     return mainContent;
 

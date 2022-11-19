@@ -130,6 +130,8 @@ https://www.analyticsvidhya.com/blog/2021/09/creating-a-movie-reviews-classifier
 
 https://medium.com/@cmukesh8688/tf-idf-vectorizer-scikit-learn-dbc0244a911a
 
+https://stackoverflow.com/questions/39662398/scikit-learn-output-metrics-classification-report-into-csv-tab-delimited-format
+
 Frontend:
 
 http://dash-bootstrap-components.opensource.faculty.ai/docs/components/offcanvas/
@@ -208,6 +210,10 @@ https://plotly.com/python/heatmaps/
 
 https://plotly.com/python/builtin-colorscales/
 
+https://community.plotly.com/t/allow-user-to-create-new-options-in-dcc-dropdown/8408/2
+
+https://github.com/plotly/dash-recipes/blob/master/dash-append-element-dropdown-options.py
+
 Python:
 
 https://realpython.com/python3-object-oriented-programming/
@@ -225,3 +231,5 @@ https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
 https://stackoverflow.com/questions/22005911/convert-columns-to-string-in-pandas
 
 https://www.programiz.com/python-programming/examples/random-number#:~:text=To%20generate%20random%20number%20in,is%20defined%20in%20random%20module.
+
+https://www.geeksforgeeks.org/range-to-a-list-in-python/
