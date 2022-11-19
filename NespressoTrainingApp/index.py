@@ -5,7 +5,9 @@ import sys
 
 sys.path.append(".")
 from app import app
-from apps import home
+from app import server
+from apps import home_page
+from apps import about_page
 from apps import NLP_page
 from apps import explore_page
 
@@ -15,13 +17,9 @@ heading = html.H2(
     style={'textAlign':'left', "margin-left":"20px", "margin-top":"25px"}
 );
 
-image_path = "https://nestle-nespresso.com/sites/site.prod.nestle-nespresso.com/files/styles/crop_freeform/public/MONOGRAM%20BLACK_0.jpg?itok=QmU2ExCh";
-
-logoImage = html.Img(src=image_path, style={'height':'75%', 'width':'55%', "padding":"0", "display":"inline-flex"});
-
 navigation = dbc.NavbarSimple(
     children=[
-        # dbc.NavItem(dbc.NavLink("Natural Language Processing", href="/NLP_page")),
+        dbc.NavItem(dbc.NavLink("About", href="/about_page")),
         dbc.DropdownMenu(
             children=[
                 dbc.DropdownMenuItem('Explore', href='/explore_page'),
@@ -54,7 +52,10 @@ app.layout = html.Div([
 def display_page(pathname):
     # Home
     if pathname == "/":
-        return home.homePageLayout;
+        return home_page.homePageLayout;
+    # About Page
+    if pathname == "/about_page":
+        return about_page.aboutPageLayout;
     # Explore Page
     elif pathname == '/explore_page':
         return explore_page.pageLayout;
@@ -68,3 +69,6 @@ def display_page(pathname):
 # Run the Dash application ----------------------------------
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
+
+# if __name__ == '__main__':
+#     app.run_server(debug=True)

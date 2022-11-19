@@ -193,6 +193,24 @@ NLP_Columns = [
 ];
 
 validationParameters = [
+    # Test Size:
+    dbc.Row(children=[
+        dbc.Col(children=[
+            html.P("Test Size", style={"font-weight":"bold"}),
+        ]),
+        dbc.Col(children=[
+            dbc.Input(id="test-size", type="number", min=0, value=0.2)
+        ])
+    ]),
+    # Random State:
+    dbc.Row(children=[
+        dbc.Col(children=[
+            html.P("Random State", style={"font-weight":"bold"}),
+        ]),
+        dbc.Col(children=[
+            dbc.Input(id="random-state", type="number", min=0, value=42)
+        ])
+    ]),
     # Target Feature Selector:
     dbc.Row(children=[
         html.P("Target Feature", style={"font-weight":"bold"}),
@@ -222,7 +240,7 @@ validationParameters = [
     dbc.Row([
         dbc.Row([
             dbc.Col([
-                html.P("Minimum")
+                html.P("Minimum", style={"text-align":"center"})
             ]),
             dbc.Col([
                 dbc.Input(id="min-alpha", type="number", min=0, value=0.01)
@@ -230,7 +248,7 @@ validationParameters = [
         ]),
         dbc.Row([
             dbc.Col([
-                html.P("Maximum")
+                html.P("Maximum", style={"text-align":"center"})
             ]),
             dbc.Col([
                 dbc.Input(id="max-alpha", type="number", min=0, value=1)
@@ -238,7 +256,7 @@ validationParameters = [
         ]),
         dbc.Row([
             dbc.Col([
-                html.P("Step")
+                html.P("Step", style={"text-align":"center"})
             ]),
             dbc.Col([
                 dbc.Input(id="step-alpha", type="number", min=0, value=0.1)
@@ -918,7 +936,7 @@ def get_recommendationContent(techniqueSelected, df, coffee_select, numRec, min_
 
 # VALIDATION CONTENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-def get_validationContent(techniqueSelected, df, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern, target, alpha, parameters, cv, refit):
+def get_validationContent(techniqueSelected, df, min_df, max_df, max_features, stop_words, n_lower, n_upper, sublinear_tf, analyzer, token_pattern, test_size, random_state, target, alpha, parameters, cv, refit):
     if techniqueSelected == 0:
         vectorizer = TfidfVectorizer(min_df=min_df, max_df=max_df, max_features=max_features, stop_words=stop_words, sublinear_tf=sublinear_tf, ngram_range=(n_lower, n_upper));
     elif techniqueSelected == 1:
@@ -929,8 +947,8 @@ def get_validationContent(techniqueSelected, df, min_df, max_df, max_features, s
         features='Textual Info', 
         target=target, 
         vectorizer=vectorizer, 
-        test_size=0.2, 
-        random_state=42,
+        test_size=test_size, 
+        random_state=random_state,
         alpha=alpha,
         parameters={
             'mulNB__alpha':parameters
@@ -974,6 +992,8 @@ def get_validationContent(techniqueSelected, df, min_df, max_df, max_features, s
         Input("analyzer", "value"),
         Input("similarity-measure","value"),
         # Validation Parameters
+        Input('test-size','value'),
+        Input('random-state','value'),
         Input("target","value"),
         Input("alpha","value"),
         Input("min-alpha","value"),
@@ -983,7 +1003,7 @@ def get_validationContent(techniqueSelected, df, min_df, max_df, max_features, s
         Input("refit","value")
     ]
 )
-def get_mainContent(coffeeSelectValue, machineTypeValue, servingValue, includeDecafValue, techniqueSelected, numRec, min_df, max_df, max_features, ngram_range, sublinear_tf, analyzer, similarityMeasure, target, alpha, minAlpha, maxAlpha, stepAlpha, cv, refit):
+def get_mainContent(coffeeSelectValue, machineTypeValue, servingValue, includeDecafValue, techniqueSelected, numRec, min_df, max_df, max_features, ngram_range, sublinear_tf, analyzer, similarityMeasure, test_size, random_state, target, alpha, minAlpha, maxAlpha, stepAlpha, cv, refit):
     if includeDecafValue == "Yes":
         mask = (df["Type"].isin(machineTypeValue)) & (df["Serving"].isin(servingValue));
     else:
@@ -1042,7 +1062,9 @@ def get_mainContent(coffeeSelectValue, machineTypeValue, servingValue, includeDe
                     n_upper = ngram_range[1], 
                     sublinear_tf = sublinear_tf, 
                     analyzer = analyzer, 
-                    token_pattern = token_pattern, 
+                    token_pattern = token_pattern,
+                    test_size=test_size,
+                    random_state=random_state, 
                     target = target, 
                     alpha = alpha, 
                     parameters = np.arange(minAlpha, maxAlpha, stepAlpha).tolist(),
