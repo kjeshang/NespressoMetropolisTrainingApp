@@ -1,0 +1,3 @@
+conda install -c conda-forge wordcloud
+conda install -c conda-forge spacy
+conda install -c conda-forge spacy-model-en_core_web_sm
