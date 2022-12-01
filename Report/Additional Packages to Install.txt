@@ -1,3 +1,22 @@
+conda install plotly
+
+conda install -c conda-forge dash
+
+conda install -c conda-forge dash-bootstrap-components
+
 conda install -c conda-forge wordcloud
+
 conda install -c conda-forge spacy
+
 conda install -c conda-forge spacy-model-en_core_web_sm
+
+conda install nltk
+Go to Terminal/Anaconda Prompt and Type "Python" to initialize python. Then perform the following commands.
+>> import nltk
+>> nltk.download('stopwords')
+>> nltk.download('punkt')
+>> nltk.download('wordnet')
+>> nltk.download('omw-1.4')
+>> exit()
+
+conda install -c conda-forge gensim
