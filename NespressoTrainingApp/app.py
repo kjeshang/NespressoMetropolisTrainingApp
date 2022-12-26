@@ -59,7 +59,13 @@ app.layout = html.Div([
     dcc.Location(id="url", refresh=False),
     navigation,
     html.Br(),
-    html.Div(id="page-content", children=[])
+    html.Div(id="page-content", children=[]),
+    html.Footer([
+        dcc.Markdown(
+        '''
+        Please visit the official [Nespresso Canada Website](https://www.nespresso.com/ca/en/) for more information
+        ''', style={"text-align":"center"})
+    ])
 ]);
 
 # Callbacks -----------------------------------------------
