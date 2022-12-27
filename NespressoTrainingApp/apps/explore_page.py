@@ -123,6 +123,20 @@ tasteProfileTypeSelector = [
 ];
 
 # Milk Selector:
+milkSelector_1 = [
+    html.P('With Milk?', style={'font-weight':'bold'}),
+    dcc.RadioItems(
+        id='milk_1',
+        options = [
+            {'label':'No', 'value':'No'},
+            {'label':'Yes', 'value':'Yes'}
+        ],
+        value='No',
+        inputStyle={"margin-right":"5px", "margin-left":"15px"},
+        style={"display":"inline-flex"}
+    )
+];
+
 milkSelector = [
     html.P('With Milk?', style={'font-weight':'bold'}),
     dcc.RadioItems(
@@ -262,7 +276,7 @@ def get_edaContent(machine, serving, decaf, category):
                     ]),
                     dbc.Col(children=[
                         dbc.Card(children=[
-                            dbc.CardBody(children=milkSelector)
+                            dbc.CardBody(children=milkSelector_1)
                         ])
                     ]),
                     dbc.Col(children=[
@@ -509,22 +523,37 @@ def get_chart5(machine, serving, decaf, category):
     Output('tasteProfile', 'value'),
     [
         Input('tasteProfileType', 'value'),
-        Input('milk', 'value')
+        Input('milk_1', 'value')
     ]
 )
 def get_tasteProfileOptions(tasteProfileType, milk):
-    if (tasteProfileType == 'Level') & (milk == 'No'):
-        options = ['Acidity','Bitterness','Roastness','Body'];
-        value = 'Acidity';
-    elif (tasteProfileType == 'Level') & (milk == 'Yes'):
-        options = ['Milky Taste','Bitterness with Milk','Roastiness with Milk','Creamy Texture'];
-        value = 'Milky Taste';
-    elif (tasteProfileType == 'Classification') & (milk == 'No'):
-        options = ['Acidity Classification','Bitterness Classification','Roastness Classification','Body Classification'];
-        value = 'Acidity Classification';
-    elif (tasteProfileType == 'Classification') & (milk == 'Yes'):
-        options = ['Milky Taste Classification','Bitterness with Milk Classification','Roastiness with Milk Classification','Creamy Texture Classification'];
-        value = 'Milky Taste Classification';
+    # if (tasteProfileType == 'Level') & (milk == 'No'):
+    #     options = ['Acidity','Bitterness','Roastness','Body'];
+    #     value = 'Acidity';
+    # elif (tasteProfileType == 'Level') & (milk == 'Yes'):
+    #     options = ['Milky Taste','Bitterness with Milk','Roastiness with Milk','Creamy Texture'];
+    #     value = 'Milky Taste';
+    # elif (tasteProfileType == 'Classification') & (milk == 'No'):
+    #     options = ['Acidity Classification','Bitterness Classification','Roastness Classification','Body Classification'];
+    #     value = 'Acidity Classification';
+    # elif (tasteProfileType == 'Classification') & (milk == 'Yes'):
+    #     options = ['Milky Taste Classification','Bitterness with Milk Classification','Roastiness with Milk Classification','Creamy Texture Classification'];
+    #     value = 'Milky Taste Classification';
+    if tasteProfileType == 'Level':
+        if milk == 'No':
+            options = ['Acidity','Bitterness','Roastness','Body'];
+            value = 'Acidity';
+        else:
+            options = ['Milky Taste','Bitterness with Milk','Roastiness with Milk','Creamy Texture'];
+            value = 'Milky Taste';
+    if tasteProfileType == 'Classification':
+        if milk == 'No':
+            options = ['Acidity Classification','Bitterness Classification','Roastness Classification','Body Classification'];
+            value = 'Acidity Classification';
+        else:
+            options = ['Milky Taste Classification','Bitterness with Milk Classification','Roastiness with Milk Classification','Creamy Texture Classification'];
+            value = 'Milky Taste Classification';
+
     return options, value;
 
 # Distribution of Taste Profile & Relationship with Intensity ************************
