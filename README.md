@@ -4,7 +4,11 @@
 
 This project was created with the intent best educate both new and existing Nespresso Coffee specialists reagrding the various coffee flavours and each their respective taste profiles, as well as make recommendations for alternative coffee flavours based on a user selected coffee. In turn, the Nespresso Coffee specialists improve their knowledge of the coffee flavours to a greater degree to provide more accurate recommendations to customers. In actuality, this project is a machine learning and natural language processing (NLP) web application in the guise of a training platform.
 
-This project in its entirety was developed using the Python programming language along with the Numpy, Pandas, Scikit-Learn, Matplotlib, Seaborn, WordCloud, Plotly, and Dash libraries. This project was developed in two stages.
+The core audience of this application are Nespresso Coffee Specialists; in particular those of the Metrotown Boutique branch. However, as the application was created to serve as a cross-hierarhical referential tool for employees that are both in the front-line and in managerial roles due to the user experience of the application emulating a dashboard yet with high-level machine learning capabilities. This application was created during my Fall 2022 Semester at Douglas College to fulfill the term project requirement of CSIS 3290: Fundamentals of Machine Learning.
+
+This project in its entirety was developed using the Python programming language along with the Numpy, Pandas, Scikit-Learn, Matplotlib, Seaborn, WordCloud, Plotly, and Dash libraries. 
+
+This project was developed in two stages.
 
 ### First Stage: Analysis
 In this stage of the project, I performed the following:
@@ -13,6 +17,7 @@ In this stage of the project, I performed the following:
 3. Exploratory Data Analysis
 4. Pre-Processing for NLP
 5. Data Analysis
+
 The above tasks were exclusively performed within Jupyter Notebooks. Anaconda Navigator was the software used to facilitate the Jupyter Notebooks, which utilizes Python Version 3.9.13 at the time of this writing.
 
 For more detailed information regarding this stage of the project, please refer to the _Term Project Report_ within the Report Directory of this repository.
