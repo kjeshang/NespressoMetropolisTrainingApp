@@ -65,6 +65,16 @@ Background Music: A Day to Remember by Storyblocks (Provided by Clipchamp)
 
 ## Credits
 
-This project was developed independently yet I consider it a culmination of my knowledge & experience working as a Nespresso Coffee Specalist at the Metrotown Branch. I would not have been able to conceive such a project without the thorough training, guidance and support regarding on the product line-up and duties of being a Coffee Specialist from my Managers, Team Leaders, and the Senior Coffee Specialists.
+This project was developed independently yet I consider it a culmination of my knowledge & experience working as a Nespresso Coffee Specalist at the Metrotown Branch.
 
-In regards to the development of this project, I would like to thank my Boutique Manager, Compliance Team Leader, Bard Team Leader, and Total Quality Management Team Leader for providing me direct opinions and feedback during the analysis stage and post-completion of the whole project.
+In regards to the coding of this project, I would like to show my appreciation to Prof. Bambang Sarif, my Python & Machine Learning instructor during the Fall 2022 semester, who shared great knowledge and provided insights during the throughout the stages of this project. His supervisory support was imperative to the completion of this project. 
+
+In addition, I would like to thank my Boutique Manager, Compliance Team Leader, Bard Team Leader, and Total Quality Management Team Leader for providing me direct opinions and feedback during the analysis stage and post-completion of the whole project. Furthermore, they are excellent professionals that consistently inspire me to become a better Coffee Specialist. The creation of this project has helped me understand the product line-up on a more inquisitive level, and I have become a more knowledgable Coffee Specialist for it.
+
+### Project Testimonials
+> To be added on a later date
+
+This section consists of testimonials about my project from members of the Nespresso Metrotown Team. The Name of the person may not be shown to protect the privacy of my colleague/supervisor/manager.
+
+|Name|Role|Testimonial|
+|--|--|--|
