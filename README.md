@@ -52,7 +52,7 @@ In this stage of the project, from the findings discovered and deductions made d
 5. Launch Microsoft Visual Studio Code.
 6. Open the **NespressoTrainingApp** directory in Microsoft Visual Studio Code.
 7. Navigate to **_app.py_**. This file instantiates the web application, which is a Plotly Dash application, and runs it on a local server on your computer.
-8. Run the application by selecting the "Play" icon on the top right-hand corner of the Microsoft Visual Studio Code window. An in-built terminal should pop-up at the bottom of the Microsoft Visual Studio Code window indicating that the application is running on a local server (i.e., http://127.0.0.1:8050/).
+8. Run the application by selecting the "Play" icon on the top right-hand corner of the Microsoft Visual Studio Code window. An in-built terminal should pop-up at the bottom of the Microsoft Visual Studio Code window indicating that the application is running on a local server. In my case, the application was running on local host in port 8050.
 9. Open any web browser of your choice and enter `http://127.0.0.1:8050/` in the URL search bar and then press the ENTER key. After this, you will be able to access and utilize the web application.
 
 ## Video Presentation (i.e., How to Use the Project)
