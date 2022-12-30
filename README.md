@@ -20,7 +20,7 @@ In this stage of the project, I performed the following:
 
 The above tasks were exclusively performed within Jupyter Notebooks. Anaconda Navigator was the software used to facilitate the Jupyter Notebooks, which utilizes Python Version 3.9.13 at the time of this writing.
 
-For more detailed information regarding this stage of the project, please refer to the _Term Project Report_ within the Report Directory of this repository.
+For more detailed information regarding this stage of the project, please refer to the _Term Project Report_ within the **_Report Directory_** of this repository.
 
 > The "5_DownloadImages" Jupyter Notebook was used to create a fully local version of the training application but due to the number of image files used, I am unable to push that version to GitHub. Thus, the version of the application that is pushed to GitHub retrieves images from the internet.
 
