@@ -69,7 +69,7 @@ This project was developed independently yet I consider it a culmination of my k
 
 In regards to the coding of this project, I would like to show my appreciation to Prof. Bambang Sarif, my Python & Machine Learning instructor during the Fall 2022 semester, who shared great knowledge and provided insights during the throughout the stages of this project. His supervisory support was imperative to the completion of this project. 
 
-In addition, I would like to thank my Boutique Manager, Compliance Team Leader, Bard Team Leader, and Total Quality Management Team Leader for providing me direct opinions and feedback during the analysis stage and post-completion of the whole project. Furthermore, they are excellent professionals that consistently inspire me to become a better Coffee Specialist. The creation of this project has helped me understand the product line-up on a more inquisitive level, and I have become a more knowledgable Coffee Specialist for it.
+In addition, I would like to thank my Boutique Manager (Scott Sorrel), Compliance Team Leader (Ali Nikan), Bard Team Leader (Kashish Bhandari), and Total Quality Management Team Leader (Zoe Jia) for providing me direct opinions and feedback during the analysis stage and post-completion of the whole project. Furthermore, they are excellent professionals that consistently inspire me to become a better Coffee Specialist. The creation of this project has helped me understand the product line-up on a more inquisitive level, and I have become a more knowledgable Coffee Specialist for it.
 
 ### Project Testimonials
 > To be added on a later date
