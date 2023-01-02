@@ -41,14 +41,16 @@ In this stage of the project, from the findings discovered and deductions made d
     * [Anaconda Python Version](https://www.anaconda.com/products/distribution)
 2. Install Microsoft Visual Studio Code, or any other Text Editor/IDE that is able to run Python code. For the purpose of this set instructions, it will be presumed Microsoft Visual Studio Code is used; in my opinion, it is one of the most lightweight and versatile text editors for programming in multiple scripting languages.
     * [Microsoft Visual Studio Code](https://code.visualstudio.com/)
-3. Perform the following commands to retrieve the project from GitHub. For simplicity purposes, it is best to save the project repository on your Desktop. Note that the commands shown below are presuming that you are using a Mac OS X or Linux based Operating System. If using Windows Operating system, the terminal commands would differ.
+3. Perform the following commands to retrieve the project from GitHub, and install the relevant Python packages that are necessary to locally run the application. For simplicity purposes, it is best to save the project repository on your Desktop. Note that the commands shown below are presuming that you are using a Mac OS X or Linux based Operating System. If using Windows Operating system, the terminal commands would differ.
 
         $ cd Desktop
         $ git clone https://github.com/kjeshang/NespressoMetropolisTrainingApp
+        $ cd NespressoMetropolisTrainingApp/NespressoTrainingApp
+        $ pip install -r requirements.txt
 
-    You can also install the project manually from this repository, however you would have to unzip the 
+    You can also install the project manually from this repository, however you would have to unzip the downloaded GitHub Repository zipped folder.
 
-4. The GitHub repository of the project should now be saved on your desktop with the name **NespressoMetropolisTrainingApp**. Using the Operating System GUI, open the aforementioned project directory. The **NespressoTrainingApp** directory should be visible. This directory contains the actual web application.
+4. The GitHub repository of the project should now be saved on your desktop with the name **NespressoMetropolisTrainingApp**, along with relevant dependencies installed using the previous step's commands. Using the Operating System GUI, open the aforementioned project directory. The **NespressoTrainingApp** directory should be visible. This directory contains the actual web application.
 5. Launch Microsoft Visual Studio Code.
 6. Open the **NespressoTrainingApp** directory in Microsoft Visual Studio Code.
 7. Navigate to **_app.py_**. This file instantiates the web application, which is a Plotly Dash application, and runs it on a local server on your computer.
@@ -69,12 +71,13 @@ This project was developed independently yet I consider it a culmination of my k
 
 In regards to the coding of this project, I would like to show my appreciation to Prof. Bambang Sarif, my Python & Machine Learning instructor during the Fall 2022 semester, who shared great knowledge and provided insights during the throughout the stages of this project. His supervisory support was imperative to the completion of this project. 
 
-In addition, I would like to thank my Boutique Manager (Scott Sorrel), Compliance Team Leader (Ali Nikan), Bard Team Leader (Kashish Bhandari), and Total Quality Management Team Leader (Zoe Jia) for providing me direct opinions and feedback during the analysis stage and post-completion of the whole project. Furthermore, they are excellent professionals that consistently inspire me to become a better Coffee Specialist. The creation of this project has helped me understand the product line-up on a more inquisitive level, and I have become a more knowledgable Coffee Specialist for it.
+In addition, I would like to thank my Boutique Manager (Scott Sorrell), Compliance Team Leader (Ali Nikan), Bard Team Leader (Kashish Bhandari), and Total Quality Management Team Leader (Zoe Jia) for providing me direct opinions and feedback during the analysis stage and post-completion of the whole project. Furthermore, they are excellent professionals that consistently inspire me to become a better Coffee Specialist. The creation of this project has helped me understand the product line-up on a more inquisitive level, and I have become a more knowledgable Coffee Specialist for it.
 
 ### Project Testimonials
-> To be added on a later date
 
 This section consists of testimonials about my project from members of the Nespresso Metrotown Team. The Name of the person may not be shown to protect the privacy of my colleague/supervisor/manager.
 
 |Name|Role|Testimonial|
 |--|--|--|
+|Scott Sorrell|Boutique Manager|Kunal has created a program that can give our brand new coffee specialists the ability to suggest new blends to customers like a pro. As opposed to just basing their recommendations on similar intensities, this program goes into the many different qualities of each of our coffees and finds attributes that may appeal to somebody besides just one attribute. After 13 years with the company, I have learned a solid grasp of all the types of coffees and I am able to point out things that a customer might like in a new coffee but this program replicates many of my suggestions using the exhaustive level of data provided. We did a test run and it was able to replicate most of the recommendations that I personally would have chosen. An excellent example of how data can be used to create better customer satisfaction.|
+|Santiago Vargas|Coffee Specialist|Nespresso Metropolis Training App is a well designed tool that reaches a high level of detail and finds links and patterns between the different flavours we have at Nespresso. It would be of great help to Nespresso workers at all levels during the training process, because it allows us to understand correlations between coffees that would be very difficult to find at plain sight. This would increase our ability to satisfy our customers' needs and give more accurate recommendations. I would like to highlight the "Word Cloud" section as an interesting use of the data, because it smoothly translates a complex data comparison into an easy-to-understand chart, and helps the end user to understand what to expect from a coffee in comparison to another. On the other hand, I also think that this project would have a potential use directly with customers. Either in the Nespresso Webpage/App or in-store, a well developed and user friendly dashboard with the proper filters could be an interactive and innovative addition to the whole Nespresso experience. |
