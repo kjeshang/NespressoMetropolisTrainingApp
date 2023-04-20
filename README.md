@@ -65,6 +65,12 @@ Background Music: A Day to Remember by Storyblocks (Provided by Clipchamp)
 
 [![Nespresso Metropolis Training App - Demonstration Video](https://github.com/kjeshang/NespressoMetropolisTrainingApp/blob/main/Report/Images/mq2.jpeg?raw=true)](https://youtu.be/1LL-yqbQuig "Nespresso Metropolis Training App Demonstration Video")
 
+## Detailed Report
+
+Please refer to the **[Report](https://github.com/kjeshang/NespressoMetropolisTrainingApp/tree/main/Report)** sub-directory for a detailed report regarding the analysis & results that helped shape the _Application_ stage of the project.
+
+Please refer to the **[Docker Implementation](https://github.com/kjeshang/NespressoMetropolisTrainingApp/tree/main/Report/Docker_Implementation)** sub-directory to explore how this project could be deployed as a containerized application using Docker.
+
 ## Credits
 
 This project was developed independently yet I consider it a culmination of my knowledge & experience working as a Nespresso Coffee Specalist at the Metrotown Branch.
